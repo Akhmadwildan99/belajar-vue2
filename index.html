@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <title>Belajar Vue</title>
 </head>
-<body>
+<br>
     <!--MEssage  -->
     <div id="app">
         <h1>Vue App</h1>
@@ -45,11 +45,50 @@
         </div>
     </div>
 
+    <!-- Imported components -->
     <div id="component-demo">
         <div>
             <button-counter></button-counter>
         </div>
     </div>
+
+    <!-- Props Title-->
+
+    <div id="blogApp">
+        <form @submit.prevent="addPlace">
+            <label for="blog-title">Add place list: </label>
+            <br/>
+            <input type="text" id="blog-title" v-model="nextPlace"/>
+            <br/>
+            <button>Add Place</button>
+        </form>
+        <blog-post v-for="(place, index) in places"
+                    :key="index"
+                    :title="place"
+                    :number="index + 1"
+                    v-on:remove="removePlace(index)"
+        ></blog-post>
+    </div>  
+    
+    <br/>
+
+    <!-- Transition Components -->
+    <div id="demoTransition">
+        <button v-on:click="show = !show">Toggle</button>
+        <div v-if="show">Hello</div>
+        <div v-else="">not hello</div>
+    </div>
+
+    <br/>
+    <!-- Mixin -->
+    <div id="mixinEl">
+        <p>{{message}}</p>
+        <p>{{foo}}</p>
+        <p>{{bar}}</p>
+    </div>
+    </br>
+
+    <div id="mixinCreated"></div>
     <script type = "text/javascript" src = "app.js"></script>
 </body>
 </html>

@@ -64,3 +64,122 @@ Vue.component('button-counter', {
 var app4 = new Vue({
     el: '#component-demo',
 })
+
+Vue.component('blog-post', {
+    props: ['title', 'number'],
+    emits: ['remove'],
+    template: 
+    `<h3 >{{number}}. My journey at {{title}}
+    <button v-on:click="$emit('remove')">remove place</button>
+    </h3>`
+})
+new Vue({
+    el: '#blogApp',
+    data: {
+        places: [],
+        nextPlace:''
+    },
+    methods:{
+        addPlace: function(){
+            if(this.nextPlace.length >= 1){
+                this.places.push(this.nextPlace)
+            }
+            this.nextPlace = ''
+        },
+        removePlace: function(index){
+            this.places.splice(index, 1)
+        }
+    }
+})
+
+new Vue({
+    el:'#demoTransition',
+    data: {
+        show: true
+    }
+})
+
+// Mixins
+var mixin = {
+    created: function(){
+        this.hello()
+    },
+
+    methods: {
+        hello: function(){
+            console.log('hello mixin');
+        }
+    }
+}
+
+var Component = Vue.extend({
+    mixins: [mixin]
+})
+
+var component = new Component()
+
+var mixin1 = {
+    data: function(){
+        return {
+            message: 'hallo',
+            foo: 'abc'
+        }
+    }
+}
+
+
+new Vue({
+    el: '#mixinEl',
+    mixins: [mixin1],
+    data: function(){
+        return {
+            message: 'goodbay',
+            bar: 'def'
+        }
+    },
+    created: function(){
+        console.log(this.$data)
+    }
+})
+
+var mixin2 = {
+    created: function(){
+        console.log('mixin hook called')
+    }
+}
+
+var vueMixin = new Vue({
+    el: '#mixinCreated',
+    mixins: [mixin2],
+    created: function(){
+        console.log('component hook called')
+    }
+})
+
+var mixin3 = {
+    methods:{
+        foo: function(){
+            console.log('foo')
+        },
+        conflict: function(){
+            console.log('conflict in mixin3')
+        }
+    }
+}
+
+var vm = new Vue({
+    mixins: [mixin3],
+    methods: {
+        bar: function(){
+            console.log('bar')
+        },
+        conflict: function(){
+            console.log('conflict in component')
+        }
+    }
+})
+
+vm.foo()
+vm.bar()
+vm.conflict()
+
