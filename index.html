@@ -88,7 +88,14 @@
     </div>
     </br>
 
-    <div id="mixinCreated"></div>
+    <div id="mixinCreated" ></div>
+
+    <br/>
+    <!-- Component Directive -->
+    <div id="component-directive" v-demo:foo.a.b="message"></div>
+    <br/>
+    <div id="binding-direct" v-binding="{backgroundColor: 'red', padding: '5px', width: '30%'}">Binding</div>
+    <br/>
     <script type = "text/javascript" src = "app.js"></script>
 </body>
 </html>

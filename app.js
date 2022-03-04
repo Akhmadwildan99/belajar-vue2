@@ -183,3 +183,35 @@ vm.foo()
 vm.bar()
 vm.conflict()
 
+// Component Directive
+Vue.directive('demo',{
+    bind: function(el, binding, vnode){
+        var s = JSON.stringify
+        el.innerHTML = 
+        'name: ' + s(binding.name) + '<br/>' +
+        'value: ' + s(binding.value) + '<br/>' +
+        'expression: ' + s(binding.expression) + '<br/>'+
+        'arguments: ' + s(binding.arg) + '<br/>'+
+        'modifiers: ' + s(binding.modifiers) + '<br/>' +
+        'vnode keys: ' + Object.keys(vnode).join(', ')
+    }
+})
+new Vue({
+    el: '#component-directive',
+    data: {
+        message: 'hello'
+    }
+})
+
+Vue.directive('binding', {
+    bind: function(el, binding) {
+        el.style.backgroundColor = binding.value.backgroundColor
+        el.style.padding = binding.value.padding
+        el.style.width = binding.value.width
+    }
+})
+
+new Vue({
+    el: '#binding-direct'
+})
+
