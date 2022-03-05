@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
     <title>Belajar Vue</title>
 </head>
 <br>
@@ -96,6 +98,49 @@
     <br/>
     <div id="binding-direct" v-binding="{backgroundColor: 'red', padding: '5px', width: '30%'}">Binding</div>
     <br/>
+    <!-- Vue filter -->
+    <div id="filterApp">
+        <form @submit.prevent="capitelize">
+            <input type="text" v-model="value"/>
+            <button>ubah</button>
+        </form>
+        <p>{{valueUpper}}</p>
+    </div>
+    <br/>
+    <!-- Belajar mounted nad watch -->
+
+    <!-- Demo watch -->
+    <div id="watchDemo">{{fullname}}</div>
+    <br/>
+
+    <!-- Demo Computed -->
+    <div id="computedDemo">{{fullname}}</div>
+    <br/>
+    <!-- Watch example -->
+    <div id="watch-example">
+        <p>
+          Ask a yes/no question:
+          <input v-model="question">
+        </p>
+        <p>{{ answer }}</p>
+    </div>
+
+    <br/>
+
+    <!-- Mounted -->
+    <div id="mountedDemo">
+        <p>{{count}}</p>
+        <button type="button" @click="counter">{{count}}</button>
+    </div>
+
+    <!-- Refs -->
+    <div id="refDemo">
+        <input type="text" ref="input">
+        <button @click="submit">submit</button>
+        <p>Your value ref input : {{inputRef}}</p>
+        <div ref="test">Hello World</div>
+        <p>{{testRef}}</p>
+    </div>
     <script type = "text/javascript" src = "app.js"></script>
 </body>
 </html>

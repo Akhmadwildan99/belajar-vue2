@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>RenderJsx</title>
+</head>
+<body>
+    <div id="app1">
+        <anchored-heading :level="1">Hello, world!</anchored-heading>
+    </div>
+
+    
+    <script type = "text/javascript" src = "render.js"></script>
+
+    <script type="text/x-template" id="anchored-heading-template">
+        <h1 v-if="level == 1">
+            <slot></slot>
+        </h1>
+        <h2 v-else-if="level == 2">
+            <slot></slot>
+        </h2>
+        <h3 v-else-if="level == 3">
+            <slot></slot>
+        </h3>
+    </script>
+    
+</body>
+</html>

@@ -215,3 +215,141 @@ new Vue({
     el: '#binding-direct'
 })
 
+new Vue({
+    el: '#filterApp',
+    data: {
+        value: '',
+        valueUpper: ''
+    },
+    methods: {
+        capitelize: function(){
+            if (!this.value) return ''
+            this.value = this.value.toString()
+            this.valueUpper = this.value.charAt(0).toUpperCase() + this.value.slice(1)
+        }
+    }
+})
+
+// Watch
+new Vue({
+    el: '#watchDemo',
+    data: {
+        firstname: 'foo',
+        lastname: 'bar',
+        fullname: 'foo bar'
+    },
+
+    watch: {
+        firstname: function(val){
+            this.fullname = val + ' ' + this.lastname
+        },
+        lastname: function(val){
+            this.fullname = this.firstname + ' ' + val
+        }
+    }
+})
+
+
+// Computed
+var newComputed = new Vue({
+    el: '#computedDemo',
+    data: {
+        firstname: 'foo',
+        lastname: 'bar',
+    },
+
+    computed: {
+        fullname: {
+            get: function(){
+                return this.firstname + ' ' + this.lastname
+            },
+            set: function(value){
+                var names = value.split(' ')
+                this.firstname = names[0]
+                this.lastname = names[names.length - 1]
+            }
+        }
+    }
+})
+
+// console.log(newComputed.firstname)
+// console.log(newComputed.lastname)
+
+
+new Vue({
+    el: '#watch-example',
+    data: {
+        question: '',
+        answer: 'I cannot give you an answer until you ask a question!',
+    },
+
+    watch: {
+        // whenever question changes, this function will run
+        question: function () {
+          this.answer = 'Waiting for you to stop typing...'
+          this.debouncedGetAnswer()
+        }, 
+        
+    },
+
+    created: function(){
+        this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+    },
+
+    methods: {
+        getAnswer: function () {
+          if (this.question.indexOf('?') === -1) {
+            this.answer = 'Questions usually contain a question mark. ;-)'
+            return
+          }
+          this.answer = 'Thinking...'
+          var vm = this
+          axios.get('https://yesno.wtf/api')
+            .then(function (response) {
+              vm.answer = _.capitalize(response.data.answer)
+            })
+            .catch(function (error) {
+              vm.answer = 'Error! Could not reach the API. ' + error
+            })
+        }
+    }
+})
+
+// Mounted
+new Vue({
+    el: '#mountedDemo',
+    data: {
+        count: 0
+    },
+    created: function(){
+            setInterval(() => {
+                this.counter()
+            }, 1000)
+    },
+    methods: {
+        counter: function () {
+            this.count++
+        }
+    },
+    mounted: function () {
+        console.log("this mounting")
+        console.log(this.count)
+    }
+})
+
+new Vue({
+    el: '#refDemo',
+    data: {
+        inputRef: 'Ref default',
+        testRef: 'Test default'
+    },
+
+    methods: {
+        submit: function () {
+            console.log(this.$refs)
+            this.inputRef = this.$refs.input.value
+            this.testRef = this.$refs.test.innerHTML
+        }
+    }
+})
+
